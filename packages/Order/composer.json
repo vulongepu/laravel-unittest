@@ -1,0 +1,16 @@
+{
+    "name": "drag/order",
+    "authors": [
+        {
+            "name": "Long Vu",
+            "email": "longvn@smartosc.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Drag\\Order\\": "src/"
+        }
+    },
+    "require": {}
+}
