@@ -1,9 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use Drag\Order\Order;
-use App\Jobs\ProcessTest;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,23 +14,20 @@ use App\Jobs\ProcessTest;
 */
 
 Route::get('/', function () {
-
-    ProcessTest::dispatch()->delay(1);
-
     return view('welcome');
 });
 
-Route::get('/home', [HomeController::class, 'index']);
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
+require __DIR__.'/auth.php';
 
-Route::get('/order', function() {
-    $order = new Order();
-
-    return $order->list();
-});
-
-Route::get('/projects', ['App\Http\Controllers\ProjectController','index']);
 Route::get('/projects/{project}', ['App\Http\Controllers\ProjectController','show']);
 
+Route::middleware('auth')->group(function () {
 
-Route::post('/projects', ['App\Http\Controllers\ProjectController','store']);
+    Route::post('/projects', ['App\Http\Controllers\ProjectController','store']);
+    Route::get('/projects', ['App\Http\Controllers\ProjectController','index']);
+
+});
