@@ -42,17 +42,14 @@ class ProjectsTest extends TestCase
 //            ->assertSee($project->description);
 //    }
 
-//    public function test_project_required_an_owner()
-//    {
-//
-//
-//        $attributes = Project::factory()->raw();
-//        $user = User::factory()->create();
-//
-//        $this->actingAs($user, 'web');
-//
-//        $this->post('/projects', $attributes)->assertRedirect('dashboard');
-//    }
+    public function test_project_required_an_owner()
+    {
+
+
+        $attributes = Project::factory()->raw();
+
+        $this->post('/projects', $attributes)->assertRedirect('login');
+    }
 
      public function test_user_can_create_a_project()
      {
@@ -63,6 +60,7 @@ class ProjectsTest extends TestCase
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph,
         ];
+
          $this->post('/projects', $arr)->assertRedirect('/projects');
 
          $this->assertDatabaseHas('projects', $arr);
