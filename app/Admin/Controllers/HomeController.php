@@ -34,7 +34,6 @@ class HomeController extends Controller
 
     public function getAccount($arrays)
     {
-        va
     }
 
     public function test()

@@ -67,4 +67,26 @@ class ProjectsTest extends TestCase
 
          $this->get('/projects')->assertSee($arr['title']);
      }
+
+     public function test_guests_cannot_view_projects()
+     {
+         $this->get('/projects')->assertRedirect('/login');
+     }
+
+     public function test_guests_cannot_create_projects()
+     {
+         $att = Project::factory()->raw();
+
+         $this->post('/projects', $att)->assertRedirect('/login');
+     }
+
+     public function test_an_authenticated_user_cannot_view_the_projects_of_others()
+     {
+         $this->be(User::factory()->create());
+
+         $project = Project::factory()->create();
+
+
+         $this->get($project->path())->assertStatus(403);
+     }
 }

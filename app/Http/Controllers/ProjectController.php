@@ -9,7 +9,7 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects =  \App\Models\Project::all();
+        $projects =  auth()->user()->projects;
 
         return view('projects.index', compact('projects'));
     }
@@ -29,9 +29,11 @@ class ProjectController extends Controller
         return redirect('/projects');
     }
 
-    public function show()
+    public function show(Project $project)
     {
-        $project = Project::findOrFail(request('project'));
+        if(auth()->user()->isNot($project->owner)) {
+            abort(403);
+        }
 
         return view('projects.show', compact('project'));
     }
