@@ -10,5 +10,11 @@
 <body>
    <h1>{{ $project->title }}</h1>
    <p>{{ $project->description }}</p>
+
+    <h1>Task</h1>
+     @foreach($project->tasks as $task)
+         <p>{{ $task->body }}</p>
+     @endforeach
 </body>
 </html>
+

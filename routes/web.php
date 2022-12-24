@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/home', ['App\Http\Controllers\HomeController','index']);
+Route::post('/home/store', ['App\Http\Controllers\HomeController','store'])->name('home.store');
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
@@ -29,5 +33,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/projects', ['App\Http\Controllers\ProjectController','store']);
     Route::get('/projects', ['App\Http\Controllers\ProjectController','index']);
+
+    Route::post('/projects/{project}/tasks', ['App\Http\Controllers\ProjectTasksController','store']);
+
 
 });

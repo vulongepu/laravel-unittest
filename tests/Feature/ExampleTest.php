@@ -17,11 +17,15 @@ class ExampleTest extends TestCase
      */
     public function test_a_basic_request()
     {
-        $user = User::factory()->create();
+//        $user = User::factory()->create();
+//
+//        $this->actingAs($user, 'auth');
 
-        $this->actingAs($user, 'auth');
 
 //        $response = $this->actingAs($user, 'web')->assertRedirect('/dashboard');
-//        dd($response);
+//        dd($response);'
+
+        $res = $this->get('/');
+        $res->assertOk();
     }
 }
