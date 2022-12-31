@@ -27,14 +27,21 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/projects/{project}', ['App\Http\Controllers\ProjectController','show']);
 
 Route::middleware('auth')->group(function () {
 
-    Route::post('/projects', ['App\Http\Controllers\ProjectController','store']);
+    Route::get('/projects/create', ['App\Http\Controllers\ProjectController','create']);
+
+    Route::post('/projects', ['App\Http\Controllers\ProjectController','store'])->name('project.store');
+
+
+    Route::get('/projects/{project}', ['App\Http\Controllers\ProjectController','show']);
+
+
     Route::get('/projects', ['App\Http\Controllers\ProjectController','index']);
 
     Route::post('/projects/{project}/tasks', ['App\Http\Controllers\ProjectTasksController','store']);
 
+    Route::patch('/projects/{project}/tasks/{task}',  ['App\Http\Controllers\ProjectTasksController','update']);
 
 });
